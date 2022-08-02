@@ -16,7 +16,7 @@
 
 //Bibliotecas
 #include <WiFi.h>  // Biblioteca para el control de WiFi
-#include <PubSubClient.h> //Biblioteca para conexion MQTT
+//#include <PubSubClient.h> //Biblioteca para conexion MQTT
 #include <Adafruit_MLX90614.h>
 #include <Wire.h>
 
@@ -25,12 +25,12 @@ const char* ssid = "AXTEL XTREMO-18D6";  // Aquí debes poner el nombre de tu re
 const char* password = "038C18D6";  // Aquí debes poner la contraseña de tu red
 
 //Datos del broker MQTT
-const char* mqtt_server = "192.168.15.29"; // Si estas en una red local, coloca la IP asignada, en caso contrario, coloca la IP publica
-IPAddress server(192,168,15,29);
+//const char* mqtt_server = "192.168.15.27"; // Si estas en una red local, coloca la IP asignada, en caso contrario, coloca la IP publica
+//IPAddress server(192,168,15,27);
 
 // Objetos
 WiFiClient espClient; // Este objeto maneja los datos de conexion WiFi
-PubSubClient client(espClient); // Este objeto maneja los datos de conexion al broker
+//PubSubClient client(espClient); // Este objeto maneja los datos de conexion al broker
 Adafruit_MLX90614 mlx = Adafruit_MLX90614();
 
 // Variables
@@ -78,8 +78,8 @@ void setup() {
   delay (1000); // Esta espera es solo una formalidad antes de iniciar la comunicación con el broker
 
   // Conexión con el broker MQTT
-  client.setServer(server, 1883); // Conectarse a la IP del broker en el puerto indicado
-  client.setCallback(callback); // Activar función de CallBack, permite recibir mensajes MQTT y ejecutar funciones a partir de ellos
+  //client.setServer(server, 1883); // Conectarse a la IP del broker en el puerto indicado
+  //client.setCallback(callback); // Activar función de CallBack, permite recibir mensajes MQTT y ejecutar funciones a partir de ellos
   delay(1500);  // Esta espera es preventiva, espera a la conexión para no perder información
 
   Wire.begin (14,15);
@@ -97,11 +97,11 @@ void setup() {
 // Cuerpo del programa, bucle principal
 void loop() {
   //Verificar siempre que haya conexión al broker
-  if (!client.connected()) {
+  /*if (!client.connected()) {
     reconnect();  // En caso de que no haya conexión, ejecutar la función de reconexión, definida despues del void setup ()
   }// fin del if (!client.connected())
   client.loop(); // Esta función es muy importante, ejecuta de manera no bloqueante las funciones necesarias para la comunicación con el broker
-
+*/
   
   
   timeNow = millis(); // Control de tiempo para esperas no bloqueantes
@@ -114,7 +114,7 @@ void loop() {
     dtostrf(data, 1, 2, dataString);  // Esta es una función nativa de leguaje AVR que convierte un arreglo de caracteres en una variable String
     Serial.print("°C: "); // Se imprime en monitor solo para poder visualizar que el evento sucede
     Serial.println(dataString);
-    client.publish("esp32/data", dataString); // Esta es la función que envía los datos por MQTT, especifica el tema y el valor
+    //client.publish("esp32/data", dataString); // Esta es la función que envía los datos por MQTT, especifica el tema y el valor
   }// fin del if (timeNow - timeLast > wait)
 }// fin del void loop ()
 
@@ -156,7 +156,7 @@ void callback(char* topic, byte* message, unsigned int length) {
 }// fin del void callback
 
 // Función para reconectarse
-void reconnect() {
+/*void reconnect() {
   // Bucle hasta lograr conexión
   while (!client.connected()) { // Pregunta si hay conexión
     Serial.print("Tratando de contectarse...");
@@ -175,3 +175,4 @@ void reconnect() {
     }// fin del else
   }// fin del bucle while (!client.connected())
 }// fin de void reconnect(
+*/
