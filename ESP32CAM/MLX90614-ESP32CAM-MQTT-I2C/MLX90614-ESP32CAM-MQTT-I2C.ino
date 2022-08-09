@@ -16,17 +16,17 @@
 
 //Bibliotecas
 #include <WiFi.h>  // Biblioteca para el control de WiFi
-#include <PubSubClient.h> //Biblioteca para conexion MQTT
-#include <Adafruit_MLX90614.h>
+//#include <PubSubClient.h> Biblioteca para conexion MQTT
+#include <Adafruit_MXL90614.h>
 #include <Wire.h>
 
 //Datos de WiFi
-const char* ssid = "AXTEL XTREMO-18D6";  // Aquí debes poner el nombre de tu red
-const char* password = "038C18D6";  // Aquí debes poner la contraseña de tu red
+const char* ssid = "Totalplay-F8A3";  // Aquí debes poner el nombre de tu red
+const char* password = "F8A315174f7TWvZr";  // Aquí debes poner la contraseña de tu red
 
 //Datos del broker MQTT
-const char* mqtt_server = "192.168.15.29"; // Si estas en una red local, coloca la IP asignada, en caso contrario, coloca la IP publica
-IPAddress server(192,168,15,29);
+//const char* mqtt_server = "192.168.15.29"; // Si estas en una red local, coloca la IP asignada, en caso contrario, coloca la IP publica
+//IPAddress server(192,168,15,29);
 
 // Objetos
 WiFiClient espClient; // Este objeto maneja los datos de conexion WiFi
